@@ -1,4 +1,4 @@
-# stunning-octo-bassoon
+# Владислав Мясоедов
 import tkinter as tk
 from tkinter import ttk, messagebox
 import json
@@ -73,6 +73,7 @@ class BookTracker:
         genre = self.genre_entry.get().strip()
         pages_str = self.pages_entry.get().strip()
 
+
         if not title or not author or not genre:
             messagebox.showerror("Ошибка", "Все поля должны быть заполнены!")
             return
@@ -97,6 +98,7 @@ class BookTracker:
         self.update_table()
         self.update_genre_filter()
 
+
     def update_table(self):
         for item in self.tree.get_children():
             self.tree.delete(item)
@@ -105,12 +107,9 @@ class BookTracker:
 
     def get_genres(self):
         return list(set(book["genre"] for book in self.books))
-
     def update_genre_filter(self):
         genres = ["Все жанры"] + self.get_genres()
         self.filter_genre["values"] = genres
-
-
     def apply_filters(self):
         selected_genre = self.filter_genre.get()
         try:
@@ -127,12 +126,10 @@ class BookTracker:
             self.tree.delete(item)
         for book in filtered_books:
             self.tree.insert("", "end", values=(book["title"], book["author"], book["genre"], book["pages"]))
-
     def save_data(self):
         with open("books.json", "w", encoding="utf-8") as f:
             json.dump(self.books, f, ensure_ascii=False, indent=4)
         messagebox.showinfo("Успех", "Данные сохранены в books.json")
-
     def load_data(self):
         if os.path.exists("books.json"):
             with open("books.json", "r", encoding="utf-8") as f:
@@ -147,3 +144,4 @@ if __name__ == "__main__":
     root = tk.Tk()
     app = BookTracker(root)
     root.mainloop()
+    
